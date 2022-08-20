@@ -1,0 +1,130 @@
+/*
+Theme Name: Chopshop
+Version: 1.0;
+Theme URI: http://issd.ca/chopsop;
+Author: Steve George
+Author URI: http://issd.ca/chopshop
+Description: General Purpose Custom Theme
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Tags: Simple, Left Sidebar, Two Column
+*/
+
+body {
+
+	padding: 0;
+	margin: 0;
+	background: #efefef;
+}
+
+/* BLOCK LAYOUT
+------------------------------------------------------------------------ */
+
+
+.container {
+	width: 100%;
+	max-width: 960px;
+	margin: 50px auto;
+	background: #fff;
+	padding: 0;
+}
+
+header.main {
+	width: 100%;
+	max-width: 960px;
+	clear: both;
+	color: #fff;
+	position: relative;
+}
+
+#content {
+	width: 100%;
+}
+
+#primary {
+	width: 100%;
+	float: right;
+	padding: 3%;
+	border: none;
+}
+
+#secondary {
+	width: 100%;
+	float: left;
+	padding: 6% 3%;
+	border-top: 1px solid #cfcfcf;
+	background: #efefef;
+}
+
+footer.main {
+	width: 100%;
+	clear: both;
+	min-height: 100px;
+	line-height: 100px;
+	text-align: center;
+	background: #4F98DC;
+	color: #FFF;
+	margin-top: 50px;
+}
+
+/* TYPOGRAPHY
+------------------------------------------------------------------------ */
+
+.site_title  {
+	position: absolute;
+	padding: 0;
+	margin: 0;
+	z-index: 100;
+	top: 60px;
+	left: 30px;
+	line-height: 100px;
+	color: #fff;
+	text-shadow: 3px 3px 3px #000;
+	font-size: 30px;
+	font-weight: 700;
+}
+
+h1.archive_title {
+
+	color: #EDA809;
+	font-size: 300%;
+	border-bottom: 1px solid #666;
+	padding-bottom: 10px;
+	margin-bottom: 20px;
+
+}
+
+footer p {
+	margin: 0;
+}
+
+
+/* NAVIGATION
+------------------------------------------------------------------------ */
+
+ul.menu {
+	padding-left: 0;
+}
+
+ul.menu li {
+	list-style-type: none;
+}
+
+
+
+/* MEDIA QUERIES
+------------------------------------------------------------------------ */
+
+@media screen and (min-width: 768px) {
+
+	#primary {
+		width: 70%;
+		border-left: 1px solid #cfcfcf;
+	}
+
+	#secondary {
+		width: 29%;
+		background: #fff;
+	}
+
+}

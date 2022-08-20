@@ -1,0 +1,31 @@
+/*
+Theme Name: Day 1
+Author: Steve George <edu@pagerange.com>
+Author URI: https://pagerange.com
+Version: 1.0
+*/
+
+body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 16px;
+    color: #666;
+}
+
+img.logo {
+    width: 150px;
+    height: auto;
+    margin: 10px;
+}
+
+.container {
+    display: flex;
+}
+
+.main {
+    flex:4;
+    margin: 20px;
+}
+
+.sidebar {
+    flex:2;
+}

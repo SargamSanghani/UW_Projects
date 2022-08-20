@@ -1,0 +1,17 @@
+.faq {
+    border: 1px solid;
+    padding: 5px;
+    background-color: #f3f1f1;
+}
+
+.faq-q {
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1.8em;
+    margin: 10px;
+}
+
+.faq-a {
+    padding: 10px;
+    background-color: #fff;
+}

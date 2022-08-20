@@ -1,0 +1,8 @@
+
+div.callout {
+	display: inline-block;
+	padding: 20px;
+	border: 1px solid #cfcfcf;
+	border-radius: 1px;
+	background: #efefef;
+}

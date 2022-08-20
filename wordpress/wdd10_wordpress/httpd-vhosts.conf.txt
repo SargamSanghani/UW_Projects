@@ -1,0 +1,14 @@
+<VirtualHost *:80>
+    DocumentRoot "C:/xampp/htdocs/wdd10_wordpress/public"
+    ServerName wdd10.test
+	<Directory "C:/xampp/htdocs/wdd10_wordpress/public">
+		Options -Indexes +FollowSymLinks
+		AllowOverride All
+		Require all granted
+	</Directory>
+    ErrorLog "logs/error.log"
+    CustomLog "access.log" common
+</VirtualHost>
+
+
+

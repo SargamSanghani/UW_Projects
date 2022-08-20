@@ -1,0 +1,163 @@
+/* 
+    Theme Name: Space Debris
+    Author: Sargam Sanghani <sargam.sanghani@gmail.com>
+    Author URI: http://capstone.sargamscorner.xyz/
+    Version: 1.0
+    Description: A theme designed for the detail about space debris
+ */
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+.logo {
+    float: left;
+}
+
+h1 {
+    font-weight: 700;
+    font-size: 1.8em;
+}
+
+h2 {
+    font-weight: 700;
+    font-size: 1.3em;
+}
+
+.yellow-title {
+    background-color: #f9ce06;
+    color: #fff;
+    margin: 0;
+    width: 100%;
+    padding: 5px 10px;
+    font-weight: 700;
+}
+
+li.current-menu-item a {
+    color: #f9ce06 !important;
+}
+
+.sky-title {
+    color: #337ab7;
+}
+
+#main {
+    padding: 0 40px;
+    margin: 0 auto;
+    max-width: 1024px;
+}
+
+.menu-bar {
+    background-color: #101f50;
+    padding: 5px 20px;
+}
+
+.menu {
+    margin: 14px;
+}
+
+.menu li a {
+    text-decoration: none;
+    color: #fff;
+    padding: 10px;
+}
+
+ul.menu li {
+    display: inline-block;
+}
+
+ul.menu {
+    list-style-type: none;
+}
+
+.title {
+    color: #101f50;
+}
+
+.mr-25 {
+    margin-right: 25px;
+}
+
+.auto-img,
+img.attachment-post-thumbnail.size-post-thumbnail.wp-post-image {
+    max-width: 100%;
+    height: auto;
+    width: 100%;
+}
+
+.invisible-btn {
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.excerpt {
+    margin: 5px 0;
+}
+
+.mb-10 {
+    margin-bottom: 10px;
+}
+
+.p-lg {
+    padding: 100px 0;
+}
+
+.btn-blue {
+    background-color: #337ab7;
+    color: #fff;
+    border: none;
+    font-size: 0.8em;
+    border-radius: 3px;
+    padding: 3px 6px;
+    /* float: right; */
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.my-3 {
+    margin: 10px 0;
+}
+
+.btn-blue:hover {
+    color: #fff;
+}
+
+footer {
+    background-color: #101f50;
+    color: #fff;
+    text-align: center;
+    padding: 25px;
+}
+
+footer .copyrights {
+    font-size: 0.7em;
+}
+
+@media screen and (max-width: 767px) {
+
+    .logo {
+        float: none;
+    }
+
+    ul#menu-main {
+        padding: 0;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+
+    ul#menu-main li {
+        display: block;
+        text-align: center;
+        padding: 5px;
+        border-bottom: 1px solid #999;
+    }
+
+    ul#menu-main li:first-child {
+        border-top: 1px solid #999;
+    }
+}

@@ -1,0 +1,23 @@
+body {
+    width: 100%;
+    background: #fff;
+    font-size: 16px;
+}
+
+#wrapper {
+    width: 100%;
+}
+
+nav,
+#sign_in_btns,
+ul#navlist,
+footer,
+#slider img:nth-child(1),
+#slider img:nth-child(3),
+#slider img:nth-child(4) {
+    display: none;
+}
+
+.card_list .card {
+    text-align: center;
+}
