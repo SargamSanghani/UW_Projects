@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>First Fetch</title>
+</head>
+<body>
+    <h1>Books With Fetch</h1>
+
+    <div id="out"></div>
+
+    <script>
+       
+    //   fetch('books/')
+    //     .then(function(response){
+    //         return response.json()
+    //     })
+    //     .then(function(json){
+    //         console.log(json)
+    //     })
+    //     .catch(function(error){
+    //         console.log(error)
+    //     });
+
+        fetch('books/')
+            .then(resp => resp.json())
+            .then(json => {
+                console.log(json)
+                outputBook(json)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+
+        function outputBook(books)
+        {
+            var book = books[0];
+            var html = `
+            <h2>${book['title']}</h2>
+                <ul>
+                    <li><strong>ID</strong>: ${book['id']}</li>
+                    <li><strong>Title</strong>: ${book['title']}</li>
+                    <li><strong>Author</strong>: ${book['author']}</li>
+                    <li><strong>Number of Pages</strong>: ${book['num_pages']}</li>
+                    <li><strong>Year Published</strong>: ${book['year_published']}</li>
+                    <li><strong>In Print</strong>: ${book['in_print']}</li>
+                </ul>
+            `;
+
+            document.getElementById('out').innerHTML = html;
+        }
+    </script>
+</body>
+</html>

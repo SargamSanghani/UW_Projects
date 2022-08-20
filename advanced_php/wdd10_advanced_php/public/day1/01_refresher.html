@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01 Refresher</title>
+    <script>
+        window.onload = function() {
+            // select element with id of title
+            const title = document.getElementById('title');
+            console.log(title);
+
+            // select elemnts by tag name
+            const paras = document.getElementsByTagName('p');
+            console.log(paras);
+
+            // select elements by class name
+            const test_paras = document.getElementsByClassName('test');
+            console.log(test_paras);
+
+            const new_title = document.querySelector('#title');
+
+            const new_paras = document.querySelectorAll('p');
+
+            const new_test_paras = document.querySelectorAll('.test');
+
+            console.log(new_title, new_paras, new_test_paras);
+
+            for(var i=0;i<paras.length;i++) {
+                console.log(paras[i]);
+            }
+
+            /*  
+
+            for($i=0;i<sizeof($paras);$i++) {
+                var_dump($paras[$i]);
+            }
+
+            */
+
+        }
+    </script>
+</head>
+<body>
+
+    <div id="main">
+
+        <h1 id="title">This is the title</h1>
+
+        <p class="test">Para 1</p>
+        <p class="test">Para 2</p>
+        <p class="test">Para 3</p>
+        <p class="test">Para 4</p>
+
+        <p>Para 5</p>
+        <p>Para 6</p>
+        <p>Para 7</p>
+
+    </div>
+    
+</body>
+</html>

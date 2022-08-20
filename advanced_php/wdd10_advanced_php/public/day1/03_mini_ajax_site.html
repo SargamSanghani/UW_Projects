@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Ajax Site</title>
+    <style>
+        a {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <p>
+        <a onclick="return home()">Home</a> | 
+        <a onclick="about()">About</a> | 
+        <a onclick="shop()">Shop</a> | 
+        <a onclick="support()">Support</a> | 
+        <a onclick="contact()">Contact</a>
+    </p>
+
+    <div id="content"></div>
+
+<script>
+
+window.onload = function() {
+    home();
+}
+
+function home() {
+
+    var xhr = new XMLHttpRequest();
+
+    xhr.open('GET', 'pages/home.txt')
+
+    xhr.onreadystatechange = function() {
+        if(xhr.readyState == 4 && xhr.status == 200) {
+            var page = xhr.responseText;
+            document.getElementById('content').innerHTML = page;
+        }
+    }
+
+    xhr.send(null);
+
+    return false;
+}
+
+function about() {
+
+var xhr = new XMLHttpRequest();
+
+xhr.open('GET', 'pages/about.txt')
+
+xhr.onreadystatechange = function() {
+    if(xhr.readyState == 4 && xhr.status == 200) {
+        var page = xhr.responseText;
+        document.getElementById('content').innerHTML = page;
+    }
+}
+
+xhr.send(null);
+
+return false;
+}
+
+function shop() {
+
+var xhr = new XMLHttpRequest();
+
+xhr.open('GET', 'pages/shop.txt')
+
+xhr.onreadystatechange = function() {
+    if(xhr.readyState == 4 && xhr.status == 200) {
+        var page = xhr.responseText;
+        document.getElementById('content').innerHTML = page;
+    }
+}
+
+xhr.send(null);
+
+return false;
+}
+
+function support() {
+
+var xhr = new XMLHttpRequest();
+
+xhr.open('GET', 'pages/support.txt')
+
+xhr.onreadystatechange = function() {
+    if(xhr.readyState == 4 && xhr.status == 200) {
+        var page = xhr.responseText;
+        document.getElementById('content').innerHTML = page;
+    }
+}
+
+xhr.send(null);
+
+return false;
+}
+
+function contact() {
+
+var xhr = new XMLHttpRequest();
+
+xhr.open('GET', 'pages/contact.txt')
+
+xhr.onreadystatechange = function() {
+    if(xhr.readyState == 4 && xhr.status == 200) {
+        var page = xhr.responseText;
+        document.getElementById('content').innerHTML = page;
+    }
+}
+
+xhr.send(null);
+
+return false;
+}
+
+</script>
+    
+</body>
+</html>

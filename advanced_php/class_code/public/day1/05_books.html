@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books</title>
+</head>
+
+<body>
+    <h1>Books</h1>
+
+
+    <div>
+        <p>Books API endpoints</p>
+        <pre>
+            <code>
+                GET /books.php returns all books
+                GET /books.php?id={id} returns one book
+                POST /books.php create new book record
+                PUT /books.php?id={id} Update a book record
+                DELETE /book.php?id={id} Delete a book record
+            </code>
+        </pre>
+    </div>
+
+    <div id="out"></div>
+
+    <script>
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'books.php?id=1');
+        xhr.responseType = 'json';
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var res = xhr.response;
+                outputBook(res);
+            }
+        }
+        xhr.send(null);
+
+        function outputBook(book) {
+
+            var html = `
+            <ul>
+                <li><strong>ID</strong>: ${book['id']}</li>
+                <li><strong>Title</strong>: ${book['title']}</li>
+                <li><strong>Author</strong>: ${book['author']}</li>
+                <li><strong>Num Pages</strong>: ${book['num_pages']}</li>
+                <li><strong>Year Published</strong>: ${book['year_published']}</li>
+                <li><strong>In Print</strong>: ${book['in_print']}</li>
+            </ul>
+            `;
+
+            document.getElementById('out').innerHTML = html;
+        }
+    </script>
+</body>
+
+</html>

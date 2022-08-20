@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books</title>
+</head>
+<body>
+    <h1>Books</h1>
+
+    <div>
+        <p>Books API Endpoints</p>
+        <pre><code>
+            GET /books.php  returns all books
+            GET /books.php?id={id}  returns one book  
+            POST /books.php create new book record
+            PUT /books.php?id={id} Update a book record
+            DELETE /books?id={id} Delete a book record
+        </code></pre>
+    </div>
+
+    <div id="out"></div>
+
+    <script>
+        // create Ajax Object
+        var xhr = new XMLHttpRequest;
+
+        // Send GET request to books.php
+        xhr.open('GET', 'books.php?id=1');
+        xhr.responseType = 'json';
+        // Create onreadystatechange handler
+        xhr.onreadystatechange = function() {
+            if(xhr.readyState == 4 && xhr.status == 200) {
+                console.log(xhr.response);
+                outputBook(xhr.response);
+                // console.log(reponseText)
+                // response will be plain text
+                // convert to JSON with JSON.parse
+                // var json = JSON.parse(xhr.responseText);
+                // JSON.stringify(jsObject) // create JSON string
+                // console.log(json);
+            }
+        }
+
+        // send request
+        xhr.send(null);
+
+        function outputBook(books)
+        {
+            var book = books[0];
+            var html = `
+            <h2>${book['title']}</h2>
+                <ul>
+                    <li><strong>ID</strong>: ${book['id']}</li>
+                    <li><strong>Title</strong>: ${book['title']}</li>
+                    <li><strong>Author</strong>: ${book['author']}</li>
+                    <li><strong>Number of Pages</strong>: ${book['num_pages']}</li>
+                    <li><strong>Year Published</strong>: ${book['year_published']}</li>
+                    <li><strong>In Print</strong>: ${book['in_print']}</li>
+                </ul>
+            `;
+
+            document.getElementById('out').innerHTML = html;
+        }
+    </script>
+</body>
+</html>

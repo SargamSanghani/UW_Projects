@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>07 jQuery Load</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+
+    <h1>jQuery AJAX Functions: Load</h1>
+
+    <pre><code>
+        $.load() : loading HTML directly into a div
+        $.get() : load a URL via GET (data or html)
+        $.post() : send POST data to a URL
+        $.ajax() : more complex, can handly any request type
+    </code></pre>
+
+    <button onclick="loadHtml()">Load HTML</button>
+
+    <button onclick="loadPhp()">Load Php</button>
+
+    <button onclick="sendData()">Send Post Data</button>
+
+    <button onclick="sendGetData()">Send Get Data</button>
+
+    <button onclick="testSuccess()">View Success Callback</button>
+
+    <div id="out"></div>
+
+    <script>
+        function loadHtml()
+        {
+            $('#out').html('');
+            $('#out').load('html.txt');
+        }
+
+        function loadPhp()
+        {
+            $('#out').html('');
+            $('#out').load('out.php');
+        }
+
+        function sendData()
+        {
+            var data = {};
+            data.title = 'Hello, World';
+            $('#out').load('methods.php', data);
+        }
+
+        function sendGetData()
+        {
+            $('#out').load('books/?id=2');
+        }
+
+        function testSuccess()
+        {
+            $('#out').load('books/?id=2', function(response, status, xhr){
+                console.log(response, status, xhr);
+            });
+        }
+    </script>
+    
+</body>
+</html>

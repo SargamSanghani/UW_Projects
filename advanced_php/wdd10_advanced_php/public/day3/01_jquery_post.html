@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01 jQuery POST</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+     function sendPost()
+    {
+        var data = {};
+        data.first_name = 'Davey';
+        data.last_name = 'Jones';
+        data.email = 'djones@example.com';
+
+        $.post('post.php2', data, 'json')
+        // .done(function(response){
+        //     console.log($response)
+        // })
+        .done(response => {
+            console.log('done', response);
+        })
+        .fail((response, status) => {
+            console.log('fail', status)
+        })
+        .always(response => {
+            console.log('always', response)
+        })
+
+
+        $.post('post.php2', data, function(response){
+            console.log(response)
+        },'json')
+    
+
+    }
+</script>
+</head>
+<body>
+    <h1>jQuery Post</h1>
+
+    <button onclick="sendPost()">Send Post</button>
+
+
+</body>
+</html>

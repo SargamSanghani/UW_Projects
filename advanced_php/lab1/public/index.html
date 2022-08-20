@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                container: {
+                    center: true
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+    <div class="container max-w-screen-lg">
+        <h1 class="text-xl drop-shadow-lg font-bold text-center py-4 bg-neutral-200 my-4">Users</h1>
+
+        <div id="out"></div>
+
+        <div class="grid grid-cols-2 gap-4 text-center">
+            <div class="drop-shadow-lg bg-teal-50 p-4">
+                <button class="rounded-full bg-teal-500 px-4 text-white font-bold py-2" id="all">Show
+                    All</button>
+
+                <div class="text-l font-bold py-4">All Users (<span id="count"></span>)</div>
+                <div id="allData"></div>
+            </div>
+            <div class="drop-shadow-lg bg-rose-50 p-4">
+                <button class="rounded-full bg-rose-500 px-4 text-white font-bold py-2" id="one">Show
+                    One</button>
+                <div class="text-l font-bold py-4">One User</div>
+                <div id="oneData"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+
+        var users = [];
+
+        // setting default count 0
+        document.getElementById('count').innerHTML = 0;
+
+        document.getElementById('all').onclick = function () {
+            getData(0);
+        };
+
+        document.getElementById('one').onclick = function () {
+            getData(1);
+        };
+
+        // a function to get user data by id or all data
+        function getData(id) {
+            var xhr = new XMLHttpRequest();
+
+            // changin path according to user request
+            const path = (id != 0) ? 'users/index.php?id=1' : 'users/index.php';
+            xhr.open('GET', path);
+            xhr.responseType = 'json';
+            xhr.onreadystatechange = function () {
+
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var res = xhr.response;
+                    var html = '';
+                    res.results.forEach(element => {
+                        html += `<div class="text-left bg-white my-4 p-4 drop-shadow-lg">
+                                    <ul>
+                                    `;
+                        html += '<li><strong>ID: </strong>' + element.id + '</li>';
+                        html += '<li><strong>First Name: </strong>' + element.first_name + '</li>';
+                        html += '<li><strong>Last Name: </strong>' + element.last_name + '</li>';
+                        html += '<li><strong>Email: </strong>' + element.email + '</li>';
+                        html += '<li><strong>Phone: </strong>' + element.phone + '</li>';
+                        html += `</ul>
+                        </div>`;
+                    });
+
+                    if (id == 0) {
+                        document.getElementById('count').innerHTML = res.count;
+                    }
+
+                    document.getElementById((id == 0) ? 'allData' : 'oneData').innerHTML = html;
+                }
+            }
+            xhr.send(null);
+        }
+
+    </script>
+</body>
+
+</html>

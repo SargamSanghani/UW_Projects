@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX Request Methods</title>
+</head>
+
+<body>
+    <h1>AJAX Request Methods</h1>
+
+    <form onsubmit="createBook(event, this)" id="create">
+        <p>
+            <button onclick="sendGET()">GET</button>
+            <button onclick="sendPOST()">POST</button>
+            <button onclick="sendPUT()">PUT</button>
+            <button onclick="sendDELETE()">DELETE</button>
+            <button onclick="sendFUBAR()">FUBAR</button>
+        </p>
+
+    </form>
+
+    <script>
+
+        function sendGET() {
+
+            var xhr = new XMLHttpRequest;
+
+            xhr.open('GET', 'methods.php');
+
+            xhr.responseType = 'json';
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    console.log(xhr.response);
+                }
+            }
+
+            xhr.send(null);
+        }
+
+
+        function sendPOST() {
+
+            var xhr = new XMLHttpRequest;
+
+            xhr.open('POST', 'methods.php');
+
+            xhr.responseType = 'json';
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    console.log(xhr.response);
+                }
+            }
+
+            xhr.send(null);
+        }
+
+        function sendPUT() {
+
+            var xhr = new XMLHttpRequest;
+
+            xhr.open('PUT', 'methods.php');
+
+            xhr.responseType = 'json';
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    console.log(xhr.response);
+                }
+            }
+
+            xhr.send(null);
+        }
+
+        function sendDELETE() {
+
+            var xhr = new XMLHttpRequest;
+
+            xhr.open('DELETE', 'methods.php');
+
+            xhr.responseType = 'json';
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    console.log(xhr.response);
+                }
+            }
+
+            xhr.send(null);
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery Post With Form</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+
+    <h1>jQuery Post With Form</h1>
+
+    <form onsubmit="handleForm(event)" id="create_book">
+        <p>Title: <input type="text" name="title" placeholder="Title"></p>
+        <p>Author: <input type="text" name="author" placeholder="Author"></p>
+        <p>Publishesr: <input type="text" name="publisher" placeholder="Publisher"></p>
+        <p>Format: <input type="text" name="format" placeholder="Format"></p>
+        <p>Genre: <input type="text" name="genre" placeholder="Genre"></p>
+        <p>Year Published: <input type="text" name="year_published" placeholder="year_published"></p>
+        <p><input type="submit" /></p>
+    </form>
+
+    <script>
+        function handleForm(e)
+        {
+            e.preventDefault();
+            
+            const data = $('#create_book').serialize();
+            
+            $.post('post.php', data, response => {
+                console.log(response);
+            }, 'json');
+            
+        }
+    </script>
+    
+</body>
+</html>

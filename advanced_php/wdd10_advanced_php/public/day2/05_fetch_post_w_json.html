@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>04 Ajax Post</title>
+</head>
+<body>
+
+    <h1>Fetch POST Request</h1>
+
+    <form onsubmit="createBook(event, this)" id="create">
+        <p>Title: <input type="text" name="title" placeholder="Title" /></p>
+        <p>Author: <input type="text" name="author" placeholder="Author" /></p>
+        <p>Year Published: <input type="text" name="year_published" placeholder="Year Published" /></p>
+        <p>Num Pages: <input type="text" name="num_pages" placeholder="Num Pages" /></p>
+        <p><button>Submit</button></p>
+    </form>
+    
+    <script>
+
+        function createBook(e, form)
+        {
+            // Stop form from submitting
+            e.preventDefault();
+
+            var data = {};
+            data.title = form.title.value
+            data.author = form.author.value;
+            data.year_published = form.year_published.value
+            data.num_pages = form.num_pages.value
+
+            // In PHP
+                // json_encode() // convert to json string
+                // json_decode() // convert json string to PHP obj
+            // In JS
+                // JSON.stringify() // convert object to JSON string
+                // JSON.parse() // converts JSON string to object
+
+            var options = {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json'
+                }  
+            }
+
+            fetch('books/', options)
+                .then(resp => resp.text())
+                .then(json => {
+                    console.log(json)
+                })
+                .catch(error => {
+                    console.error(error)
+                })
+
+
+
+        }
+        
+    </script>
+</body>
+</html>

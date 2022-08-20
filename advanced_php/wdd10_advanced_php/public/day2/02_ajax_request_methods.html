@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01 Ajax Post</title>
+</head>
+<body>
+
+    <h1>Ajax Request Methods</h1>
+
+    <p><button onclick="sendGet()">GET</button>
+        <button onclick="sendPost()">POST</button>
+        <button onclick="sendPut()">PUT</button>
+        <button onclick="sendDelete()">DELETE</button>
+        <button onclick="sendFubar()">FUBAR</button>
+    </p>
+
+    
+    <script>
+
+function sendGet()
+        {
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', 'methods.php'); 
+
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+           xhr.onreadystatechange=function(){
+               if(xhr.readyState == 4 && xhr.status == 200) {
+                   console.log(xhr.response)
+               }
+           }
+
+           xhr.send(null);
+        }
+
+        function sendPost()
+        {
+
+           
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('POST', 'methods.php'); 
+
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+           xhr.onreadystatechange=function(){
+               if(xhr.readyState == 4 && xhr.status == 200) {
+                   console.log(xhr.response)
+               }
+           }
+
+           xhr.send(null);
+        }
+
+        function sendPut()
+        {
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('PUT', 'methods.php'); 
+
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+           xhr.onreadystatechange=function(){
+               if(xhr.readyState == 4 && xhr.status == 200) {
+                   console.log(xhr.response)
+               }
+           }
+
+           xhr.send(null);
+        }
+
+        function sendDelete()
+        {
+           
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('DELETE', 'methods.php'); 
+
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+           xhr.onreadystatechange=function(){
+               if(xhr.readyState == 4 && xhr.status == 200) {
+                   console.log(xhr.response)
+               }
+           }
+
+           xhr.send(null);
+        }
+
+        function sendFubar()
+        {
+           
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('FUBAR', 'methods.php'); 
+
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+           xhr.onreadystatechange=function(){
+               if(xhr.readyState == 4 && xhr.status == 200) {
+                   console.log(xhr.response)
+               }
+           }
+
+           xhr.send(null);
+        }
+
+    </script>
+</body>
+</html>

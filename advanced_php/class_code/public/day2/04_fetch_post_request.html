@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FETCH post</title>
+</head>
+
+<body>
+    <h1>FETCH POST Request</h1>
+
+    <form onsubmit="createBook(event, this)" id="create">
+        <p>Title: <input type="text" name="title" placeholder="Book Title"></p>
+        <p>Author: <input type="text" name="author" placeholder="Author"></p>
+        <p>Num Pages: <input type="text" name="num_pages" placeholder="Num Pages"></p>
+        <p>Year Published: <input type="text" name="year_published" placeholder="Year Published"></p>
+        <!-- <p>In Print: <input type="text"name="in_print" placeholder="In Print"></p> -->
+
+        <p><button>Submit</button></p>
+    </form>
+
+    <script>
+
+        function createBook(e, el) {
+            e.preventDefault();
+            var data = `title=${el.title.value}&author=${el.author.value}&year_published=${el.year_published.value}&num_pages=${el.num_pages.value}`;
+
+            console.log(data);
+            var options = {
+                method: 'POST',
+                body: data,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            };
+            fetch('books/', options)
+                .then(resp => resp.text())
+                .then(json => {
+                    console.log(json);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+    </script>
+</body>
+
+</html>

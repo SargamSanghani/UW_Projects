@@ -1,0 +1,47 @@
+# Review Questions
+
+1. Write a vanilla ajax (xhr) request to retrieve html from server.php and output the response to a div with id of 'output'.
+
+```javascript
+var xhr = new XMLHttpRequest();
+
+xhr.open('GET', 'server.php');
+
+xhr.onreadystatechange = function() {
+	if(xhr.readyState == 4 && xhr.status == 200) {
+		document.getElementById('output').innerHTML = xhr.responseText;
+	}
+}
+
+xhr.send(null)
+```
+
+2. Write a vanilla ajax (xhr) request to send POST data to server.php that can be accessed in the $_POST array.  Data to send:   title: Dune, author: Frank Herbert.  Console log the JSON response.
+
+```javascript
+var data = "title=Dune&author=Frank Herbert"
+
+var book = {
+	title: 'Dune',
+	author: 'Frank Herbert'
+}
+
+var data_str = new URLSearchParams(book).toString();
+
+// set www-urlencoded header
+
+// w-www-form-urlencoded
+
+```
+
+
+3. Write a fetch() request to send an object named `user` as a POST request to server.php, and console log the JSON response.
+
+4. Write the template code for an anchor tag in a vue component that accepts the following variables:  id, to be used as the id of the anchor, url to be used as the href of the anchor, and str to be used as the innerHTML of the anchor.  (You only need to write the code between the <template> tags)
+
+5. Write the code inside the <style> block of a component file to cause all paragraphs to be dark red and bold... but ONLY inside this component.
+
+6. Write a jQuery POST request using the $.ajax() method to send an object named 'data' to the server, and to console log the JSON response.
+
+
+

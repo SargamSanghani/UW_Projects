@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Ajax Site</title>
+    <style>
+        a {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <p>
+        <a onclick="page('home')">Home</a> | 
+        <a onclick="page('about')">About</a> | 
+        <a onclick="page('shop')">Shop</a> | 
+        <a onclick="page('support')">Support</a> | 
+        <a onclick="page('contact')">Contact</a>
+    </p>
+
+    <div id="content"></div>
+
+<script>
+
+window.onload = function() {
+    page('home');
+}
+
+function page(page) {
+
+    // Step 1 - create ajax object
+    var xhr = new XMLHttpRequest();
+
+    // Step 2 - define the target you are opening, and request method
+    xhr.open('GET', `pages/${page}.txt`)
+
+    // Define a handler for the request
+    xhr.onreadystatechange = function() {
+        if(xhr.readyState == 4 && xhr.status == 200) {
+            var page = xhr.responseText;
+            document.getElementById('content').innerHTML = page;
+        }
+    }
+
+    // Send the request... when we are sending POST or PUT
+    // data, we will pass it as a variable
+    xhr.send(null);
+
+    return false;
+}
+
+
+</script>
+    
+</body>
+</html>
