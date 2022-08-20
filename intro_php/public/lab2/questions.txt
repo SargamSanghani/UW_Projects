@@ -1,0 +1,36 @@
+1. What tags are used to surround PHP code?
+A. <?php ?>
+
+2. What extension should a PHP file have?
+A. .php
+
+3. What is the command to start PHP’s built-in server from any folder?
+A. php -S localhost:4200
+
+4. Name two PHP functions/language-constructs that can be used to output data to be sent to the browser?
+A. 1) echo 
+   2) print()
+
+5. What’s the difference between using single quotes and double quotes for a string?
+A. Single or double quotes work fine for sending string, but when we need to use some characters like '\n' we must use double quotes.
+
+6. There are three ways to write comment in PHP scripts. What are they?
+A. 1) /* multi line comment */
+   2) // single line comment
+   3) third one is /* inline */ comment
+
+7. What character must be the first character in any variable name? What characters can be the second character in any variable name? What characters can be the third and higher character in any variable name?
+A. - A variable starts with a $ sign and it is followed by the variable name. 
+   - It must start with a letter or underscore (no numbers). 
+   - For the rest of the variable name, it can contain alpha-numeric and underscores
+
+8. Are variable names case sensitive or case-insensitive in PHP?
+A. Yes, they are case sensitive.
+
+9. The string concatenation operator in Javascript is the + sign. What is the concatenation operator in PHP?
+A. Concatenation operator in PHP is .(period).
+
+10. How do you define a constant in PHP? What are the differences between a constant and a variable?
+A. Syntax of defining a contant is as below:
+   define('NAME','Sargam');
+   - Once constant is defined it can not be changed, while a variable can be changed after defining.

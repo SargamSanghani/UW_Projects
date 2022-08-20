@@ -1,0 +1,31 @@
+# Predicate: Products table
+
+- id INT PK NN AI - Primary key auto incrementing unique id
+- title VARCHAR(255) NN - The title of the product
+- description VARCHAR(255) - Long description of the product
+- excerpt TEXT - Summary of the product
+- image VARCHAR(255) - image url of the product
+- created_at DATETIME - The time of product creation 
+- updated_at DATETIME - The time of product updated 
+- is_deleted BOOLEAN - Key for soft delete the product 
+- price DECIMAL(2) - Price of the product with 2 digits after decimal points
+- overall_rating DECIMAL - Overall rating of the product 
+- ratings INT - Number of total ratings of the product 
+- category_id INT - The id of category of the product 
+- is_out_of_stock BOOLEAN - true if the product is not available
+- preparing time DECIMAL - The total time of preparing the product in minutes
+- size ENUM('S','M','L','XL') - Size of the product 
+- incre_price_by_size DECIMAL - Multiply this field to the actual price to get price of higher size's product 
+- is_gluten_free BOOLEAN - true if the product is gluten free 
+- is_veg BOOLEAN - true if the product is vegetarian 
+- calories VARCHAR(255) - Total calories of the product in different unit 
+- total_sales BIGINT - Total number of sales of the product 
+- ingredients VARCHAR(255) - List of ingredients used in the product 
+- servings_for_S CHAR(2) - Number of serving per product of size small 
+- incre_serving DECIMAL - Multiply this field with the servings_for_S to get the servings by size
+
+# Citation reference:
+
+- https://www.pizzapizza.ca/store/1/delivery
+- https://bostonpizza.com/en/menu/pasta.html
+- https://www.dominos.ca/en/

@@ -1,0 +1,46 @@
+# Setting up
+
+You must setup the database in MySQL required to run the scripts in this folder.  Follow these steps:
+
+WARNING!!! DO NOT FOLLOW THESE INSTRUCTIONS IF YOU ALREADY HAVE A DATABASE NAMED `borland`.  THIS SCRIPT WILL DELETE IT.  IF YOU HAVE TO, RENAME THE DATABASE ON THE FIRST TWO LINES OF THE SCRIPT.
+
+1. Start the MySQL server.  If you're using XAMPP or MAMP this is usually involves opening the AMP manager and clicking 'start' next to the MySQL server.
+
+2. Open a terminal and use the MySQL shell client to open MySQL.  Alternatively, you could use PhpMyAdmin to do this as well.
+
+3. Cut and paste the following script into the MySQL shell or into the SQL panel of PhPMyAdmin. 
+
+
+-- script starts
+
+DROP DATABASE IF EXISTS borland;
+CREATE DATABASE borland;
+USE borland;
+DROP TABLE IF EXISTS employees;
+
+CREATE TABLE employees (
+id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+first_name VARCHAR(255) NOT NULL,
+last_name VARCHAR(255) NOT NULL,
+email VARCHAR(255),
+phone VARCHAR(255),
+department VARCHAR(255),
+created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+INSERT INTO employees
+(first_name, last_name, email, phone, department, created_at, updated_at)
+VALUES
+('Dave', 'Jones', 'djones@borland.com', '212-555-3456', 'Sales', '2021-01-12 09:03:52', '2021-01-12 09:03:52'),
+('Henry', 'Bissoon', 'hbissoon@borland.com', '204-323-1145', 'IT', '2021-06-22 09:03:52', '2021-06-22 09:03:52'),
+('Margaret', 'Thomson', 'mthomson@borland.com', '234-456-6548', 'Sales', '2021-08-16 09:03:52', '2021-08-16 09:03:52'),
+('Jill', 'King', 'jking@borland.com', '212-555-4432', 'Support', '2021-09-17 09:03:52', '2021-09-17 09:03:52');
+
+DROP TABLE IF EXISTS employees_arc;
+CREATE TABLE employees_arc LIKE employees;
+
+-- script ends
+
+
+
