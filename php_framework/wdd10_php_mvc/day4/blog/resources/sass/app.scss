@@ -1,0 +1,21 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+body {
+    margin-top: 100px;
+}
+
+#cats {
+    font-size: 0.8rem;
+    columns: 2;
+}
+
+h1#title {
+    margin-bottom: 30px;
+}
