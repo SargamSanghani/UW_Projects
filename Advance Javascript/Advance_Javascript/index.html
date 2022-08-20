@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced JavaScript: Assignment 1</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster+Two:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background-image: url('./images/galaxy.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: 'Lobster Two', cursive;
+        }
+
+        #wrapper {
+            margin: 0 auto;
+            max-width: 800px;
+        }
+
+        h1 {
+            text-align: center;
+            font-weight: 700;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 10px;
+        }
+
+        #carousel .active {
+            filter: none;
+        }
+
+        #carousel {
+            width: 100%;
+            height: 300px;
+            position: relative;
+        }
+
+        img {
+            display: hidden;
+            cursor: pointer;
+            filter: grayscale(0.8);
+            width: 300px;
+            height: auto;
+        }
+
+        #pager {
+            text-align: center;
+        }
+
+        button {
+            cursor: pointer;
+            padding: 10px 20px;
+            font-size: 1.1em;
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        #title {
+            color: #fff;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            width: 200px;
+            margin: 75px auto;
+        }
+
+        @media only screen and (max-width: 767px) {
+            #carousel img {
+                width: 150px;
+            }
+        }
+
+        @media screen and (min-width:768px) and (max-width: 959px) {
+            #carousel img {
+                width: 200px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Start of: Wrapper -->
+    <div id="wrapper">
+
+        <h1>Advanced JavaScript: Assignment 1</h1>
+
+        <!-- Start of: carousel -->
+        <div id="carousel">
+
+            <!-- Setting title for each images for caption -->
+            <img src="./images/earth.png" data-title="Earth" alt="Earth">
+            <img src="./images/jupiter.png" data-title="Jupiter" alt="Jupiter">
+            <img src="./images/moon.png" data-title="Moon" alt="Moon">
+            <img src="./images/mercury.png" data-title="Mercury" alt="Mercury">
+            <img src="./images/venus.png" data-title="Venus" alt="Venus">
+        </div>
+        <!-- End of: carousel -->
+
+        <!-- Setting default caption for first image -->
+        <h2 id="title">Earth</h2>
+
+        <!-- Pager for navigating carousel -->
+        <div id="pager">
+            <button id="prev">Prev</button>&nbsp;
+            <button id="next">Next</button>
+        </div>
+    </div>
+    <!-- End of: Wrapper -->
+
+    <!-- Linking script for jQuery carousel -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="./jQuery-Waterwheel-Carousel/js/jquery.waterwheelCarousel.min.js"></script>
+
+    <!-- Start of: script tag -->
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            initializeCarousel();
+        });
+
+        function initializeCarousel() {
+
+            // Setting separation variable to make carousel responsive
+            var separation = window.innerWidth < 768 ? (window.innerWidth * 0.30) : (window.innerWidth * 0.25);
+
+            // initializing carousel setting the options below
+            var carousel = $("#carousel").waterwheelCarousel({
+
+                // Setting the horizon
+                horizon: 200,
+
+                // Separating each item with each other
+                separation: separation,
+
+                // Number of visible items on each side
+                flankingItems: 1,
+
+                // Setting how much the items should increase/decrease by as they span out
+                sizeMultiplier: 0.5,
+
+                // Setting class name to the item on the center
+                activeClassName: 'active',
+
+                // Allowing arrow keys to move carousel
+                keyboardNav: true,
+
+                // Setting speed in milliseconds to wait before auto-rotating
+                autoPlay: 1000,
+
+                // Setting dynamic captions when an item is moved to center
+                movedToCenter: function (event) {
+                    document.getElementById("title").innerHTML = event.data('title');
+                }
+            });
+
+            // Moving carousel forward on click of Next button
+            $('#next').click(function () {
+                carousel.next();
+            });
+
+            // Moving carousel backward on click of Prev button
+            $('#prev').click(function () {
+                carousel.prev();
+            });
+
+            // On resizing window reinitializing carousel to make it responsive
+            $(window).on('resize', function () {
+                history.go(0);
+            });
+        }
+
+    </script>
+    <!-- End of: script tag -->
+
+</body>
+
+</html>

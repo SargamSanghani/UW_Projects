@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Game</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arima+Madurai:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<style>
+    html,
+    body {
+        margin: 0px;
+        padding: 0px;
+        font-family: 'Arima Madurai', cursive;
+        font-size: 16px;
+    }
+
+    #gameArea {
+        overflow: hidden;
+        width: 100vw;
+        background-image: linear-gradient(15deg, #297bbb, #5C9FC9, #78E3DD);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        position: absolute;
+        top: 0;
+        height: 100vh;
+    }
+
+    .score-board {
+        display: none;
+        background: #fff;
+        width: 300px;
+        border-radius: 20px 20px 0 0;
+        position: absolute;
+        bottom: 0;
+        left: calc(50% - 150px);
+        text-align: center;
+        font-size: 1.2em;
+    }
+
+    .winner {
+        display: none;
+    }
+
+    .game-home {
+        text-align: center;
+        padding: 5vh;
+    }
+
+    .bubble {
+        position: absolute;
+        border-radius: 50%;
+        padding: 13px 25px;
+        display: inline-block;
+        font-size: 1.5em;
+        font-weight: 700;
+        text-shadow: 1px 1px 3px #fff;
+    }
+
+    button {
+        cursor: pointer;
+        border-radius: 20px;
+        background: #ffffff;
+        box-shadow: 1px 1px 5px #8f8f8f, 0px 0px 5px #ffffff;
+        padding: 10px 20px;
+        border: none;
+    }
+
+    button:hover {
+        box-shadow: inset 1px 1px 5px #8f8f8f, inset 0px 0px 5px #ffffff;
+    }
+
+    .gameover {
+        display: none;
+        position: absolute;
+        top: 25vh;
+        left: 35%;
+    }
+
+    .total-score {
+        background-color: #fff;
+        padding: 10px 100px 40px 100px;
+        border-radius: 10px;
+        text-align: center;
+    }
+
+    #money {
+        position: absolute;
+        bottom: 0;
+        left: calc(50% - 95px);
+        cursor: pointer;
+        padding: 20px;
+    }
+
+    #playTable {
+        height: 100px;
+        position: absolute;
+        bottom: 0;
+        background: #EECE9E;
+        width: 100%;
+        left: 0;
+        border-top: 3px dotted #FFECCF;
+    }
+
+    h1,
+    h2 {
+        font-weight: 700;
+        color: #fff;
+    }
+
+    input[type=text] {
+        border: none;
+        padding: 10px;
+        margin: 10px;
+        border-radius: 10px;
+    }
+</style>
+
+<body>
+
+    <!-- start of: wrapper  -->
+    <div id="wrapper">
+
+        <!-- canvas for showing confetti  -->
+        <canvas id="canvas"></canvas>
+
+        <!-- start of: play area  -->
+        <div id="gameArea">
+
+            <!-- score board to show score updates  -->
+            <div class="score-board">
+                <p>Your score: <span class="score">0</span></p>
+                <p>Chances left: <span class="chances-left">5</span></p>
+                <p>Your personal best: <span class="best-score">0</span></p>
+            </div>
+
+            <!-- start of: home page  -->
+            <div class="game-home">
+                <h1>
+                    Hey! <br> Please enter your nickname
+                </h1>
+                <h2>(Unless you are a bad guy!) <br>
+                    <input type="text" value="Bad Guy" onchange="updateNickname(event)"> <br>
+                    Then put the money into the jar to get started!
+                </h2>
+
+                <!-- an empty jar to collect money  -->
+                <div ondrop="dropMoney()" ondragover="dragOverJar(event)" ondragleave="takeMoneyBack()"> <img id="jar"
+                        src="./images/empty-jar.png" alt="Money Jar">
+                </div>
+
+                <!-- a table to put money  -->
+                <div id="playTable"></div>
+
+                <!-- money on the table to play the game  -->
+                <div id="money" draggable="true"><img src="./images/money.png" alt="Cash"></div>
+
+            </div>
+            <!-- end if: home page  -->
+
+        </div>
+        <!-- end of: play area  -->
+
+        <!-- game over message  -->
+        <div class="gameover">
+            <div class="total-score">
+                <div class="wrapper winner">
+                    <h4>Game over!!!</h4>
+
+                    <!-- showing message if one breaks his own record  -->
+                    <p id="recordBroke"></p>
+
+                    <p>Play again?</p>
+                    <button class="restart">Yes</button>&nbsp;
+                    <button class="cancel">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end of: wrapper  -->
+
+    <!-- start of: script  -->
+    <script>
+
+        // creating objects for all the audios 
+        var bubblePop = new Audio('./audios/pop.mp3');
+        var bubbleError = new Audio('./audios/error.wav');
+        var winner = new Audio('./audios/winner.wav');
+
+        // default user name
+        var currentUser = 'Bad Guy';
+
+        // an array for alphabets for the bubbles
+        let alphabets = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+
+        let windowWidth = window.innerWidth;
+        let windowHeight = window.innerHeight;
+        let score = document.querySelectorAll('.score');
+        let totalPopped = 0;
+        let isGameover = false;
+        let bubbleLeft = 5; // maximum bubble skipping allowed to continue the game
+        let gameover = document.querySelector('.gameover');
+        let visits; // number of user visits
+
+        var stopConfetti = null;
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+
+        // incrementing visit count if user is visiting again 
+        if (localStorage.getItem("visitcount")) {
+            visits = parseInt(localStorage.getItem("visitcount"));
+            visits++;
+        } else {
+            visits = 1;
+        }
+
+        // setting count to the local storage
+        localStorage.setItem("visitcount", visits);
+
+        // a method to update the user nickname
+        function updateNickname(e) {
+            if (event.target.value) {
+                currentUser = event.target.value;
+            }
+        }
+
+        // filling the jar with money if user drag over the empty jar
+        function dragOverJar(event) {
+            event.preventDefault();
+            document.getElementById('jar').src = './images/jar.png';
+        }
+
+        // take back money from the jar if user moves away from the jar
+        function takeMoneyBack() {
+            document.getElementById('jar').src = './images/empty-jar.png';
+        }
+
+        // start the game if user drops the money into the jar
+        function dropMoney() {
+            event.preventDefault();
+
+            document.querySelector('.score-board').style.display = 'block';
+            document.querySelector('.game-home').style.display = 'none';
+            document.querySelector('.best-score').innerHTML = localStorage.getItem('best_score') || 0;
+            alert("Press the alphabet from your keyboard to pop the bubbles!");
+            startGame();
+        }
+
+        // a method to generate random value
+        function getRandom(min, max) {
+            return Math.floor(Math.random() * (max - min)) + min;
+        }
+
+        // a method to create a bubble with random color reflection
+        function createBubble() {
+
+            // getting random alphabet from the alphabets array 
+            const alphabet = alphabets[getRandom(0, alphabets.length - 1)];
+            let div = document.createElement('p'); // creating p tag for bubble
+
+            // setting up the class name (duplicate ids are not allowed, but classes are)
+            div.className = 'bubble ' + alphabet;
+
+            // creating random box shadow for making bubbles colorful
+            div.style.boxShadow = "inset 0 0 10px #fff, inset 0px 0px 10px " + createRandomRGBColor() +
+                ", inset 2px 0px 7px " + createRandomRGBColor() + ", inset 10px -10px 7px " + createRandomRGBColor();
+            const node = document.createTextNode(alphabet);
+            div.appendChild(node);
+
+            div.style.top = windowHeight + 'px'; // setting bubble at the bottom of the window
+            div.style.left = getRandom(0, windowWidth - 70) + 'px'; // assigning random left property
+            document.getElementById('gameArea').appendChild(div);
+
+            animateBubble(div, alphabet);
+        }
+
+        // a method to create random color with opacity
+        function createRandomRGBColor() {
+            var red = getRandom(0, 255);
+            var green = getRandom(0, 255);
+            var blue = getRandom(0, 255);
+
+            // setting opacity to be between 0.3 to 0.8
+            var opacity = Math.random() * (0.5 - 0.3) + 0.3;
+            return 'rgb(' + red + ',' + green + ',' + blue + ',' + opacity + ')';
+        }
+
+        // a method to move bubble to the top of the window
+        function animateBubble(ele, alphabet) {
+
+            let deduct = 0; // value to deduct from the top on every iteration
+
+            let interval = setInterval(function () {
+
+                // clearing interval after bubble leaves the window
+                if (deduct >= (windowHeight + 100) || isGameover) {
+                    clearInterval(interval);
+                    if (bubbleLeft >= 0) {
+                        if (bubbleLeft != 0) {
+                            bubbleLeft--;
+                            bubbleError.play();
+                        }
+                        document.querySelector('.chances-left').textContent = bubbleLeft;
+                    }
+                }
+
+                // moving bubble to the top
+                else {
+                    deduct++;
+                    ele.style.top = window.innerHeight - deduct + 'px';
+                }
+            }, 8 - ((Math.floor(totalPopped / 3)))); // increasing speed of the bubble after every 3 pops 
+        }
+
+        // a method to pop a bubble
+        function popBubble(ele) {
+            // ele.remove();
+            ele.parentNode.removeChild(ele);
+
+            totalPopped++;
+            scoreUpdate();
+            bubblePop.play();
+        }
+
+        // a method to show updated score
+        function scoreUpdate() {
+            for (let i = 0; i < score.length; i++) {
+                score[i].textContent = totalPopped;
+            }
+            document.querySelector('.best-score').innerHTML = localStorage.getItem('best_score') || 0;
+        }
+
+        // a method to start the game
+        function startGame() {
+            restartGame();
+            let timeout = 0;
+            setTimeout(() => {
+
+                let gameStart = setInterval(function () {
+                    timeout = getRandom(100, 500); // random speed for the bubble to be created
+
+                    // creating bubbles until the game is not over
+                    if (!isGameover && bubbleLeft > 0) {
+                        createBubble();
+                    } else {
+                        clearInterval(gameStart);
+                        gameover.style.display = 'block';
+                        gameover.querySelector('.winner').style.display = 'block';
+                        isGameover = true;
+
+                        // setting up the current username to local storage
+                        localStorage.setItem('nickname', currentUser);
+                        let bestScore = localStorage.getItem('best_score') ? localStorage.getItem('best_score') : 0;
+
+                        // checking if the user has broke his record or not
+                        if (bestScore < totalPopped) {
+
+                            // if he breaks the record, showing confetti and update the best score
+                            showConfetti();
+                            bestScore = totalPopped;
+                            gameover.querySelector('#recordBroke').innerHTML = 'Congratulation for breaking your own record!';
+                        }
+
+                        // setting up the best score to local stoarge
+                        localStorage.setItem('best_score', bestScore);
+                        winner.play();
+                    }
+                }, 800 + timeout);
+            }, 1000);
+        }
+
+        // a method to restart the game 
+        function restartGame() {
+            let allBubbles = document.querySelectorAll('.bubble');
+            for (let i = allBubbles.length - 1; i > 0; i--) {
+                allBubbles[i].remove();
+            }
+
+            // removing confetti 
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            clearInterval(stopConfetti);
+
+            isGameover = false;
+            totalPopped = 0;
+            bubbleLeft = 5;
+            document.querySelector('.chances-left').textContent = bubbleLeft;
+            scoreUpdate();
+        }
+
+        // a method to detect alphabet clicks and popping the bubbles
+        document.addEventListener("keypress", function (e) {
+
+            // checking if the user has entered only alphabets or not
+            if (alphabets.includes((e.key).toUpperCase())) {
+                const currentBubble = document.querySelector('.' + (e.key).toUpperCase());
+
+                // popping the user entered bubble if game is not over yet
+                if (currentBubble && !isGameover) {
+                    popBubble(currentBubble);
+                }
+            }
+        });
+
+        // if you clicks on play again restarting the game
+        document.querySelector('.restart').addEventListener('click', function () {
+            gameover.style.display = 'none';
+            gameover.querySelector('.winner').style.display = 'none';
+            startGame();
+        });
+
+        // if user does not want to play again throwing it back to the home page
+        document.querySelector('.cancel').addEventListener('click', function () {
+            gameover.style.display = 'none';
+            alert("You found it boring, huh?!");
+            history.go(0);
+        });
+
+        // a method to show confetti to celebrate
+        function showConfetti() {
+            document.getElementById('gameArea').style.zIndex = -1;
+
+
+            // setting canvas dimensions to avoid unnecessary scroll
+            var W = window.innerWidth - 5;
+            var H = window.innerHeight - 5;
+            canvas.width = W;
+            canvas.height = H;
+
+            var confetti = [];
+            // creating 1000 confetti
+            for (var i = 0; i < 1000; i++) {
+
+                // pushing confetto to the confetti list
+                confetti.push({
+                    x: Math.random() * W, // x-coordinate
+                    y: Math.random() * H, // y-coordinate
+                    w: getRandom(4, 8), // width for square confetto
+                    color: "rgba(" + getRandom(0, 255) + ", " + getRandom(0, 255) + ", " + getRandom(0, 255) + ", 0.8)"
+                })
+            }
+
+            // drawing random colored confetti to canvas
+            stopConfetti = setInterval(function () {
+
+                ctx.clearRect(0, 0, W, H);
+
+                for (var i = 0; i < confetti.length; i++) {
+                    var p = confetti[i];
+                    ctx.beginPath();
+                    ctx.fillStyle = p.color;
+                    ctx.moveTo(p.x, p.y);
+                    ctx.rect(p.x, p.y, p.w, p.w);
+                    ctx.fill();
+                }
+
+                animateConfetti();
+
+            }, 10);
+
+
+            // a method to animate confetti
+            function animateConfetti() {
+
+                for (var i = 0; i < confetti.length; i++) {
+
+                    var p = confetti[i];
+                    p.y += 2; // moving all of them towards bottom
+                    i % 2 == 0 ? p.x++ : p.x--; // moving half of the confetti to left and rest to the right
+
+                    // adding more confetti to the window to make it raining continuously
+                    if (p.x > W + 5 || p.x < -5 || p.y > H) {
+                        if (i % 3 > 0) { // most of the confetti 
+                            confetti[i] = { x: Math.random() * W, y: -10, w: p.w, color: p.color };
+                        } else {
+                            confetti[i] = { x: -5, y: Math.random() * H, w: p.w, color: p.color };
+                        }
+                    }
+                }
+            }
+
+        }
+
+    </script>
+    <!-- end of: script  -->
+
+</body>
+
+</html>
