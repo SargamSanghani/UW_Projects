@@ -1,3 +1,5 @@
+# Instructions:
+
 Previously, you created some script for form validation. For this assignment, you can
 use the same form, and even some of the same JavaScript. However, you will need to
 use regular expressions this time to validate the following:
@@ -36,7 +38,7 @@ dots/periods. All these phone numbers should be allowed:
 204.444.2323
 204-555-3434
    
-Note: For this assignment, only square brackets [] are allowed. Conventional
+   Note: For this assignment, only square brackets [] are allowed. Conventional
 RegEx scripts found online will NOT work. You must create this yourself.
 
 4. Postal Code: Validate a Canadian postal code (ie: R3C_4C0) so that it follows
